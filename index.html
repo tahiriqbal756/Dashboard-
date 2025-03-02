@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Monitoring Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .data-box {
+            padding: 10px;
+            margin: 10px 0;
+            background: #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Child Monitoring Dashboard</h2>
+        <div class="data-box">
+            <strong>Location:</strong> <span id="location">Fetching...</span>
+        </div>
+        <div class="data-box">
+            <strong>Battery:</strong> <span id="battery">Checking...</span>
+        </div>
+        <div class="data-box">
+            <strong>Device Info:</strong> <span id="device-info">Loading...</span>
+        </div>
+    </div>
+
+    <script>
+        // 📍 Get Location
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        document.getElementById("location").innerText = 
+                            `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
+                    },
+                    (error) => {
+                        document.getElementById("location").innerText = "Location access denied!";
+                    }
+                );
+            } else {
+                document.getElementById("location").innerText = "Geolocation not supported!";
+            }
+        }
+
+        // 🔋 Get Battery Status
+        function getBatteryStatus() {
+            navigator.getBattery().then((battery) => {
+                document.getElementById("battery").innerText = 
+                    `${Math.round(battery.level * 100)}% (${battery.charging ? "Charging" : "Not Charging"})`;
+            });
+        }
+
+        // 📱 Get Device Info
+        function getDeviceInfo() {
+            document.getElementById("device-info").innerText = 
+                `Browser: ${navigator.userAgent}`;
+        }
+
+        // ⏳ Auto-update data
+        getLocation();
+        getBatteryStatus();
+        getDeviceInfo();
+        setInterval(getLocation, 60000);  // Update location every minute
+    </script>
+</body>
+</html>
