@@ -3,83 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Child Monitoring Dashboard</title>
+    <title>SIM Info - Ultra Neon</title>
     <style>
+        /* 🌟 Body Styling */
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #0a0a0a 10%, #111 90%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #f0f0f0;
+            flex-direction: column;
+            overflow: hidden;
+            animation: bgAnimation 10s infinite alternate ease-in-out;
         }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #333;
-        }
-        .data-box {
-            padding: 10px;
-            margin: 10px 0;
-            background: #ddd;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Child Monitoring Dashboard</h2>
-        <div class="data-box">
-            <strong>Location:</strong> <span id="location">Fetching...</span>
-        </div>
-        <div class="data-box">
-            <strong>Battery:</strong> <span id="battery">Checking...</span>
-        </div>
-        <div class="data-box">
-            <strong>Device Info:</strong> <span id="device-info">Loading...</span>
-        </div>
-    </div>
 
-    <script>
-        // 📍 Get Location
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        document.getElementById("location").innerText = 
-                            `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
-                    },
-                    (error) => {
-                        document.getElementById("location").innerText = "Location access denied!";
-                    }
-                );
-            } else {
-                document.getElementById("location").innerText = "Geolocation not supported!";
+        /* 🔥 Background Animation */
+        @keyframes bgAnimation {
+            0% { background: radial-gradient(circle, #0a0a0a 10%, #222 90%); }
+            100% { background: radial-gradient(circle, #1a1a1a 10%, #000 90%); }
+        }
+
+        /* 💡 Neon Glow Text */
+        h1 {
+            font-size: 4rem;
+            color: #0ff;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px #0ff, 0 0 15px #0ff, 0 0 30px #0ff, 0 0 50px #0ff;
+            animation: glowText 2s infinite alternate;
+        }
+
+        @keyframes glowText {
+            0% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff; }
+            100% { text-shadow: 0 0 20px #0ff, 0 0 40px #0ff; }
+        }
+
+        /* 🎛 Glassmorphic Card */
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            text-align: center;
+            width: 400px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        /* 🟢 Input Field */
+        input {
+            padding: 15px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #0ff;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            outline: none;
+            width: 100%;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px #0ff;
+        }
+
+        /* 🕹 Neon Button */
+        .button {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #0ff, #00f);
+            border: none;
+            color: #000;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 50px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px #0ff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 10%, transparent 50%);
+            transform: translate(-50%, -50%);
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .button:hover::before {
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        /* 🎇 Result Container */
+        .result {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 500px;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            100% {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
-        // 🔋 Get Battery Status
-        function getBatteryStatus() {
-            navigator.getBattery().then((battery) => {
-                document.getElementById("battery").innerText = 
-                    `${Math.round(battery.level * 100)}% (${battery.charging ? "Charging" : "Not Charging"})`;
-            });
+        .result p {
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 10px 0;
         }
 
-        // 📱 Get Device Info
-        function getDeviceInfo() {
-            document.getElementById("device-info").innerText = 
-                `Browser: ${navigator.userAgent}`;
+        .result .key {
+            font-weight: bold;
+            color: #0ff;
         }
 
-        // ⏳ Auto-update data
-        getLocation();
-        getBatteryStatus();
-        getDeviceInfo();
-        setInterval(getLocation, 60000);  // Update location every minute
+    </style>
+</head>
+<body>
+
+    <h1>SIM DATABASE PRO</h1>
+
+    <div class="card">
+        <input type="text" id="phone-number" placeholder="Enter phone number" />
+        <br><br>
+        <button class="button" onclick="fetchSimDetails()">🔍 Get Info</button>
+    </div>
+
+    <div class="result" id="result-container"></div>
+
+    <script>
+        // Function to fetch SIM info using API
+        async function fetchSimDetails() {
+            const phoneNumber = document.getElementById('phone-number').value.trim();
+            const resultContainer = document.getElementById('result-container');
+            
+            if (!phoneNumber) {
+                resultContainer.innerHTML = '<p>Please enter a valid phone number.</p>';
+                return;
+            }
+
+            const apiUrl = `https://fam-official.serv00.net/sim/api.php?num=${phoneNumber}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                if (data.error) {
+                    resultContainer.innerHTML = '<p>Invalid phone number or no information available.</p>';
+                    return;
+                }
+
+                // Display results with animation
+                resultContainer.innerHTML = '';
+                for (const key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        const dataDiv = document.createElement('div');
+                        dataDiv.classList.add('result');
+                        dataDiv.innerHTML = `<p><span class="key">${key}:</span> ${data[key]}</p>`;
+                        resultContainer.appendChild(dataDiv);
+                    }
+                }
+
+            } catch (error) {
+                resultContainer.innerHTML = '<p>Error fetching data. Please try again later.</p>';
+            }
+        }
     </script>
+
 </body>
 </html>
