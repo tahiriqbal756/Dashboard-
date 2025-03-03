@@ -3,201 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIM Info - Ultra Neon</title>
+    <title>SIM Info HA DATABASE</title>
     <style>
-        /* 🌟 Body Styling */
+        /* Body Styling - Moving Gradient Background */
         body {
             font-family: 'Arial', sans-serif;
-            background: radial-gradient(circle, #0a0a0a 10%, #111 90%);
+            background: linear-gradient(45deg, #1b1b1b, #0ff, #ff00ff, #ff4500);
+            background-size: 400% 400%;
+            animation: backgroundMove 8s infinite alternate;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #f0f0f0;
+            color: #fff;
             flex-direction: column;
             overflow: hidden;
-            animation: bgAnimation 10s infinite alternate ease-in-out;
         }
 
-        /* 🔥 Background Animation */
-        @keyframes bgAnimation {
-            0% { background: radial-gradient(circle, #0a0a0a 10%, #222 90%); }
-            100% { background: radial-gradient(circle, #1a1a1a 10%, #000 90%); }
+        @keyframes backgroundMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
 
-        /* 💡 Neon Glow Text */
-        h1 {
-            font-size: 4rem;
-            color: #0ff;
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 0 5px #0ff, 0 0 15px #0ff, 0 0 30px #0ff, 0 0 50px #0ff;
-            animation: glowText 2s infinite alternate;
-        }
-
-        @keyframes glowText {
-            0% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff; }
-            100% { text-shadow: 0 0 20px #0ff, 0 0 40px #0ff; }
-        }
-
-        /* 🎛 Glassmorphic Card */
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
+        /* 3D Floating Dialog Box */
+        .dialog-box {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
             border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
             text-align: center;
             width: 400px;
-            transition: transform 0.3s ease;
+            box-shadow: 0px 0px 30px #ff00ff;
+            transform-style: preserve-3d;
+            animation: floatEffect 3s infinite alternate ease-in-out;
         }
 
-        .card:hover {
-            transform: scale(1.05);
+        @keyframes floatEffect {
+            from { transform: translateY(5px) rotateX(8deg) rotateY(-8deg); }
+            to { transform: translateY(-5px) rotateX(-8deg) rotateY(8deg); }
         }
 
-        /* 🟢 Input Field */
+        /* Stylish Input Field */
         input {
-            padding: 15px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: #0ff;
-            font-size: 1.2rem;
-            border-radius: 50px;
+            padding: 12px;
+            border: 2px solid #0ff;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 8px;
             outline: none;
             width: 100%;
             text-align: center;
-            transition: 0.3s ease;
+            margin-bottom: 10px;
+            box-shadow: 0 0 20px #ff00ff;
         }
 
-        input:focus {
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 10px #0ff;
-        }
-
-        /* 🕹 Neon Button */
+        /* Button Styles - Animated */
         .button {
             padding: 15px 30px;
-            background: linear-gradient(45deg, #0ff, #00f);
             border: none;
-            color: #000;
-            font-size: 1.2rem;
+            color: #fff;
+            font-size: 1.1rem;
             cursor: pointer;
             border-radius: 50px;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px #0ff;
-            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff00ff, #0ff);
+            box-shadow: 0 0 20px #ff00ff;
+            transition: all 0.3s ease-in-out;
             position: relative;
             overflow: hidden;
+            margin-top: 10px;
         }
 
         .button::before {
             content: "";
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 10%, transparent 50%);
-            transform: translate(-50%, -50%);
-            transition: all 0.4s ease;
-            opacity: 0;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
         }
 
         .button:hover::before {
-            width: 100%;
-            height: 100%;
-            opacity: 1;
+            left: 100%;
         }
 
-        .button:active {
-            transform: scale(0.95);
+        .button:hover {
+            box-shadow: 0 0 40px #ff00ff, 0 0 60px #0ff;
+            transform: scale(1.05);
         }
 
-        /* 🎇 Result Container */
-        .result {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            width: 80%;
-            max-width: 500px;
-            opacity: 0;
-            transform: scale(0.9);
-            animation: fadeIn 1s ease forwards;
+        /* 3D Voice Button */
+        .voice-button {
+            background: #ff4500;
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px #ff4500;
+            transition: 0.3s ease-in-out;
         }
 
-        @keyframes fadeIn {
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .voice-button:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px #ff4500;
         }
 
-        .result p {
-            font-size: 1.2rem;
+        /* WhatsApp Contact Button */
+        .whatsapp-button {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
             color: #fff;
-            margin: 10px 0;
+            background: #25D366;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 20px #25D366;
+            transition: all 0.3s;
         }
 
-        .result .key {
-            font-weight: bold;
+        .whatsapp-button:hover {
+            box-shadow: 0 0 40px #25D366;
+            transform: scale(1.05);
+        }
+
+        /* Made by Hamid Hacker */
+        .made-by {
+            margin-top: 10px;
+            font-size: 0.9rem;
             color: #0ff;
+            text-shadow: 0 0 10px #0ff;
         }
 
+        /* Title Animation */
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 0 15px #0ff, 0 0 30px #ff00ff;
+            animation: pulseEffect 2s infinite alternate;
+        }
+
+        @keyframes pulseEffect {
+            from { text-shadow: 0 0 10px #0ff; }
+            to { text-shadow: 0 0 40px #ff00ff; }
+        }
     </style>
 </head>
 <body>
 
-    <h1>SIM DATABASE PRO</h1>
+    <h1>HAMID SIM DATABASE</h1>
 
-    <div class="card">
+    <div class="dialog-box">
         <input type="text" id="phone-number" placeholder="Enter phone number" />
-        <br><br>
-        <button class="button" onclick="fetchSimDetails()">🔍 Get Info</button>
+        
+        <!-- 🎤 Voice Input Button -->
+        <button class="voice-button" onclick="startVoiceInput()">🎤</button>
+
+        <button class="button" onclick="fetchSimDetails()">Get SIM Info</button>
+        <a class="whatsapp-button" href="https://wa.me/923259421220" target="_blank">Contact on WhatsApp</a>
+        
+        <!-- Made by Hamid Hacker -->
+        <p class="made-by">Made by Hamid Hacker</p>
     </div>
 
-    <div class="result" id="result-container"></div>
-
     <script>
-        // Function to fetch SIM info using API
+        // Function to fetch SIM info
         async function fetchSimDetails() {
             const phoneNumber = document.getElementById('phone-number').value.trim();
-            const resultContainer = document.getElementById('result-container');
             
             if (!phoneNumber) {
-                resultContainer.innerHTML = '<p>Please enter a valid phone number.</p>';
+                alert("Please enter a valid phone number.");
                 return;
             }
 
-            const apiUrl = `https://fam-official.serv00.net/sim/api.php?num=${phoneNumber}`;
+            const apiUrl = `https://example.com/sim/api.php?num=${phoneNumber}`;  // Replace with working API
 
             try {
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-                
-                if (data.error) {
-                    resultContainer.innerHTML = '<p>Invalid phone number or no information available.</p>';
-                    return;
-                }
-
-                // Display results with animation
-                resultContainer.innerHTML = '';
-                for (const key in data) {
-                    if (data.hasOwnProperty(key)) {
-                        const dataDiv = document.createElement('div');
-                        dataDiv.classList.add('result');
-                        dataDiv.innerHTML = `<p><span class="key">${key}:</span> ${data[key]}</p>`;
-                        resultContainer.appendChild(dataDiv);
-                    }
-                }
-
+                alert(JSON.stringify(data, null, 2));
             } catch (error) {
-                resultContainer.innerHTML = '<p>Error fetching data. Please try again later.</p>';
+                alert("Error fetching data.");
             }
+        }
+
+        // Function for Voice Input
+        function startVoiceInput() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('phone-number').value = transcript;
+            };
+            
+            recognition.start();
         }
     </script>
 
